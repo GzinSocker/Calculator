@@ -25,26 +25,26 @@ public class Car {
         switch(orientation){
             case 1:
             case 2:{
-                x1=x2=23;
+                x1=23;x2=24;
                 y1=y2=42;
                 break;
             }
             case 3:
             case 4:{
                 x1=x2=42;
-                y1=y2=18;
+                y1=18;y2=19;
                 break;
             }
             case 5:
             case 6:{
-                x1=x2=18;
+                x1=18;x2=19;
                 y1=y2=0;
                 break;
            }
             case 7:
             case 8:{
                 x1=x2=0;
-                y1=y2=23;
+                y1=23;y2=24;
                 break;
            }
         }
@@ -65,43 +65,60 @@ public class Car {
         currentTime = System.currentTimeMillis();
         if(currentTime - startTime<=300.0){
             move();
-            startTime = currentTime;
         }
     }
     
     public void move(){
-        if(progress<=20){
+        if(progress<=21){
            switch(orientation){
-           case 1:
-           case 2:{
-               if(progress>1) y0=y1;
-               y1=y2--;
-               break;
+                case 1:
+                case 2:{
+                    y1=y2--;
+                    break;
+                }
+                case 3:
+                case 4:{
+                    x1=x2--;
+                    break;
+                }
+                case 5:
+                case 6:{
+                     y1=y2++;
+                     break;
+                }
+                case 7:
+                case 8:{
+                    x1=x2++;
+                    break;
+                }
            }
-           case 3:
-           case 4:{
-               if(progress>1) x0=x1;
-               x1=x2--;
-               break;
-           }
-           case 5:
-           case 6:{
-               if(progress>1) y0=y1;
-                y1=y2++;
-                break;
-           }
-           case 7:
-           case 8:{
-               if(progress>1) x0=x1;
-               x1=x2++;
-               break;
-          }
-        }
-        progress++;
         }
         else{
-            
+            switch(orientation){
+                case 4:
+                case 1:{
+                    y1=y2--;
+                    break;
+                }
+                case 6:
+                case 3:{
+                    x1=x2--;
+                    break;
+                }
+                case 8:
+                case 5:{
+                     y1=y2++;
+                     break;
+                }
+                case 2:
+                case 7:{
+                    x1=x2++;
+                    break;
+                }
+           }
         }
+        progress++;
+        startTime = currentTime;
     }
     
     public int getX1() {
@@ -142,6 +159,34 @@ public class Car {
 
     public void setProgress(int progress) {
         this.progress = progress;
+    }
+    
+    public void incProgress(){
+        progress++;
+    }
+
+    public int getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
+    }
+
+    public int getX0() {
+        return x0;
+    }
+
+    public void setX0(int x0) {
+        this.x0 = x0;
+    }
+
+    public int getY0() {
+        return y0;
+    }
+
+    public void setY0(int y0) {
+        this.y0 = y0;
     }
     
 }
