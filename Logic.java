@@ -94,7 +94,7 @@ public class Logic {
            switch(car.getOrientation()){
                 case 1:
                 case 2:{
-                    if(!(grid[car.getX2()][car.getY2()-2]>=6&&grid[car.getX2()][car.getY2()-2]<=9||grid[car.getX2()][car.getY2()-2]==5)) car.waitTheRightTime();
+                    if(!(grid[car.getX1()][car.getY2()-2]>=6&&grid[car.getX1()][car.getY2()-2]<=9||grid[car.getX2()][car.getY2()-2]==5)) car.waitTheRightTime();
                     break;
                 }
                 case 3:
@@ -104,12 +104,12 @@ public class Logic {
                 }
                 case 5:
                 case 6:{
-                     if(!(grid[car.getX2()][car.getY2()+2]>=6&&grid[car.getX2()][car.getY2()+2]<=9||grid[car.getX2()][car.getY2()+2]==5)) car.waitTheRightTime();
+                     if(!(grid[car.getX1()][car.getY2()+2]>=6&&grid[car.getX1()][car.getY2()+2]<=9||grid[car.getX2()][car.getY2()+2]==5)) car.waitTheRightTime();
                      break;
                 }
                 case 7:
                 case 8:{
-                    if(!(grid[car.getX2()+2][car.getY2()]>=6&&grid[car.getX2()+2][car.getY2()]<=9||grid[car.getX2()+2][car.getY2()]==5)) car.waitTheRightTime();
+                    if(!(grid[car.getX2()+2][car.getY1()]>=6&&grid[car.getX2()+2][car.getY1()]<=9||grid[car.getX2()+2][car.getY2()]==5)) car.waitTheRightTime();
                     break;
                 }
            }
@@ -118,7 +118,7 @@ public class Logic {
             switch(car.getOrientation()){
                 case 4:
                 case 1:{
-                    if(!(grid[car.getX2()][car.getY2()-2]>=6&&grid[car.getX2()][car.getY2()-2]<=9||grid[car.getX2()][car.getY2()-2]==5)) car.waitTheRightTime();
+                    if(!(grid[car.getX1()][car.getY2()-2]>=6&&grid[car.getX1()][car.getY2()-2]<=9||grid[car.getX2()][car.getY2()-2]==5)) car.waitTheRightTime();
                     break;
                 }
                 case 6:
@@ -128,12 +128,12 @@ public class Logic {
                 }
                 case 8:
                 case 5:{
-                     if(!(grid[car.getX2()][car.getY2()+2]>=6&&grid[car.getX2()][car.getY2()+2]<=9||grid[car.getX2()][car.getY2()+2]==5)) car.waitTheRightTime();
+                     if(!(grid[car.getX1()][car.getY2()+2]>=6&&grid[car.getX1()][car.getY2()+2]<=9||grid[car.getX2()][car.getY2()+2]==5)) car.waitTheRightTime();
                      break;
                 }
                 case 2:
                 case 7:{
-                    if(!(grid[car.getX2()+2][car.getY2()]>=6&&grid[car.getX2()+2][car.getY2()]<=9||grid[car.getX2()+2][car.getY2()]==5)) car.waitTheRightTime();
+                    if(!(grid[car.getX2()+2][car.getY1()]>=6&&grid[car.getX2()+2][car.getY1()]<=9||grid[car.getX2()+2][car.getY2()]==5)) car.waitTheRightTime();
                     break;
                 }
            }

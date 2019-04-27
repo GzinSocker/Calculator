@@ -23,18 +23,22 @@ public class TrafLight {
     
     public void verify(){
         
-        if(System.currentTimeMillis()-startTime>=8000.0){
-            if(aux==1){
-                setStatusH(5);
-                setStatusV(4);
-                aux=0;
+        if(System.currentTimeMillis()-startTime>=7000.0){
+            if(aux==0) setStatusV(2);
+            else setStatusH(2);
+            if(System.currentTimeMillis()-startTime>=8000.0){
+                if(aux==1){
+                    setStatusH(5);
+                    setStatusV(4);
+                    aux=0;
+                }
+                else{
+                    setStatusH(4);
+                    setStatusV(5);
+                    aux=1;
+                }
+                startTime = System.currentTimeMillis();
             }
-            else{
-                setStatusH(4);
-                setStatusV(5);
-                aux=1;
-            }
-            startTime = System.currentTimeMillis();
         }
     }
     

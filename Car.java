@@ -23,7 +23,7 @@ public class Car {
         startTime = System.currentTimeMillis();
         orientation=r.nextInt(8)+1;
         color = r.nextInt(4)+6;
-        vel = r.nextInt(101)+50;
+        vel = r.nextInt(76)+50;
         trafego++;
         switch(orientation){
             case 1:

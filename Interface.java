@@ -29,14 +29,14 @@ public class Interface{
         p=new Panel();
         cs[0] = new Color(194,200,151);
         cs[1] = new Color(76,72,105); 
-        cs[2] = new Color(150,194,198);
+        cs[2] = new Color(255,255,0);
         cs[3] = new Color(243,219,133);
         cs[4] = new Color(132,253,56);
         cs[5] = new Color(255,0,0);
         cs[6] = new Color(48,45,45);
         cs[7] = new Color(54,209,46);
         cs[8] = new Color(201,201,201);
-        cs[9] = new Color(244,244,40);
+        cs[9] = new Color(235,101,1);
         f = new JFrame();
         f.add(p);
         f.setSize(448,477);
@@ -52,7 +52,7 @@ public class Interface{
                 f.setTitle("Tráfego: "+l.update());
             }
         };
-        timer.schedule( task, 0L, 100L );
+        timer.schedule( task, 0L, 10L );
     }
     
     class Panel extends JPanel {
