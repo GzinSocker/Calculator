@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  *
- * @author aluno
+ * @author Castilin
  */
 public class Logic {
     int[][] grid = new int[43][43];
@@ -41,7 +41,7 @@ public class Logic {
             }
         }
     }
-    public void update(){
+    public int update(){
         currentTime = System.currentTimeMillis();
         if(currentTime-startTime>=1000.0){
             index = r.nextInt(8);
@@ -57,31 +57,32 @@ public class Logic {
             }
         }
         verifyMove();
+        return Car.getTrafego();
     }
     public void verifyMove(){
         if(c.size()>0){
             for(Car car:c){
                 if(car.getProgress()<=2){
-                    grid[car.getX1()][car.getY1()]=2;
-                    grid[car.getX2()][car.getY2()]=2;
-                    grid[car.getX1()][car.getY2()]=2;
-                    grid[car.getX2()][car.getY1()]=2;
+                    grid[car.getX1()][car.getY1()]=car.getColor();
+                    grid[car.getX2()][car.getY2()]=car.getColor();
+                    grid[car.getX1()][car.getY2()]=car.getColor();
+                    grid[car.getX2()][car.getY1()]=car.getColor();
                     car.incProgress();
                 }
-                else if((car.getProgress()==40&&car.turn())||car.getProgress()==44){
-                    grid[car.getX1()][car.getY1()]=2;
-                    grid[car.getX2()][car.getY2()]=2;
-                    grid[car.getX1()][car.getY1()]=2;
-                    grid[car.getX2()][car.getY2()]=2;
+                else if((car.getProgress()==39&&car.turn())||car.getProgress()==44){
+                    grid[car.getX1()][car.getY1()]=car.getColor();
+                    grid[car.getX2()][car.getY2()]=car.getColor();
+                    grid[car.getX1()][car.getY1()]=car.getColor();
+                    grid[car.getX2()][car.getY2()]=car.getColor();
                     removeIt(car);
                     break;
                 }
                 else{
                     checkTheRightPosition(car);
-                    grid[car.getX1()][car.getY1()]=2;
-                    grid[car.getX2()][car.getY2()]=2;
-                    grid[car.getX1()][car.getY2()]=2;
-                    grid[car.getX2()][car.getY1()]=2;
+                    grid[car.getX1()][car.getY1()]=car.getColor();
+                    grid[car.getX2()][car.getY2()]=car.getColor();
+                    grid[car.getX1()][car.getY2()]=car.getColor();
+                    grid[car.getX2()][car.getY1()]=car.getColor();
                 }
                 checkTrafLight();
             }
@@ -93,26 +94,22 @@ public class Logic {
            switch(car.getOrientation()){
                 case 1:
                 case 2:{
-                    if(!(grid[car.getX2()][car.getY2()-2]==2||grid[car.getX2()][car.getY2()-2]==5)) car.waitTheRightTime();
-                    else System.out.println("FOI1");
+                    if(!(grid[car.getX2()][car.getY2()-2]>=6&&grid[car.getX2()][car.getY2()-2]<=9||grid[car.getX2()][car.getY2()-2]==5)) car.waitTheRightTime();
                     break;
                 }
                 case 3:
                 case 4:{
-                    if(!(grid[car.getX2()-2][car.getY2()]==2||grid[car.getX2()-2][car.getY2()]==5)) car.waitTheRightTime();
-                    else System.out.println("FOI1");
+                    if(!(grid[car.getX2()-2][car.getY2()]>=6&&grid[car.getX2()-2][car.getY2()]<=9||grid[car.getX2()-2][car.getY2()]==5)) car.waitTheRightTime();
                     break;
                 }
                 case 5:
                 case 6:{
-                     if(!(grid[car.getX2()][car.getY2()+2]==2||grid[car.getX2()][car.getY2()+2]==5)) car.waitTheRightTime();
-                     else System.out.println("FOI1");
+                     if(!(grid[car.getX2()][car.getY2()+2]>=6&&grid[car.getX2()][car.getY2()+2]<=9||grid[car.getX2()][car.getY2()+2]==5)) car.waitTheRightTime();
                      break;
                 }
                 case 7:
                 case 8:{
-                    if(!(grid[car.getX2()+2][car.getY2()]==2||grid[car.getX2()+2][car.getY2()]==5)) car.waitTheRightTime();
-                    else System.out.println("FOI1");
+                    if(!(grid[car.getX2()+2][car.getY2()]>=6&&grid[car.getX2()+2][car.getY2()]<=9||grid[car.getX2()+2][car.getY2()]==5)) car.waitTheRightTime();
                     break;
                 }
            }
@@ -121,22 +118,22 @@ public class Logic {
             switch(car.getOrientation()){
                 case 4:
                 case 1:{
-                    if(!(grid[car.getX2()][car.getY2()-2]==2||grid[car.getX2()][car.getY2()-2]==5)) car.waitTheRightTime();
+                    if(!(grid[car.getX2()][car.getY2()-2]>=6&&grid[car.getX2()][car.getY2()-2]<=9||grid[car.getX2()][car.getY2()-2]==5)) car.waitTheRightTime();
                     break;
                 }
                 case 6:
                 case 3:{
-                    if(!(grid[car.getX2()-2][car.getY2()]==2||grid[car.getX2()-2][car.getY2()]==5)) car.waitTheRightTime();
+                    if(!(grid[car.getX2()-2][car.getY2()]>=6&&grid[car.getX2()-2][car.getY2()]<=9||grid[car.getX2()-2][car.getY2()]==5)) car.waitTheRightTime();
                     break;
                 }
                 case 8:
                 case 5:{
-                     if(!(grid[car.getX2()][car.getY2()+2]==2||grid[car.getX2()][car.getY2()+2]==5)) car.waitTheRightTime();
+                     if(!(grid[car.getX2()][car.getY2()+2]>=6&&grid[car.getX2()][car.getY2()+2]<=9||grid[car.getX2()][car.getY2()+2]==5)) car.waitTheRightTime();
                      break;
                 }
                 case 2:
                 case 7:{
-                    if(!(grid[car.getX2()+2][car.getY2()]==2||grid[car.getX2()+2][car.getY2()]==5)) car.waitTheRightTime();
+                    if(!(grid[car.getX2()+2][car.getY2()]>=6&&grid[car.getX2()+2][car.getY2()]<=9||grid[car.getX2()+2][car.getY2()]==5)) car.waitTheRightTime();
                     break;
                 }
            }
@@ -145,6 +142,8 @@ public class Logic {
     
     public void removeIt(Car cDel){
         c.remove(cDel);
+        cDel = null;
+        System.gc();
         verifyMove();
     }
     

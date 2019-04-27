@@ -14,12 +14,12 @@ import javax.swing.*;
 
 /**
  *
- * @author aluno
+ * @author Castilin
  */
 public class Interface{
     JFrame f;
     Graphics gg;
-    Color[] cs = new Color[8];
+    Color[] cs = new Color[10];
     Logic l;
     Timer timer;
     Panel p;
@@ -33,10 +33,15 @@ public class Interface{
         cs[3] = new Color(243,219,133);
         cs[4] = new Color(132,253,56);
         cs[5] = new Color(255,0,0);
+        cs[6] = new Color(48,45,45);
+        cs[7] = new Color(54,209,46);
+        cs[8] = new Color(201,201,201);
+        cs[9] = new Color(244,244,40);
         f = new JFrame();
         f.add(p);
-        f.setSize(448,460);
+        f.setSize(448,477);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setTitle("Tráfego: 0");
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         timer = new Timer();
@@ -44,7 +49,7 @@ public class Interface{
             public void run()
             {
                 p.repaint();
-                l.update();
+                f.setTitle("Tráfego: "+l.update());
             }
         };
         timer.schedule( task, 0L, 100L );

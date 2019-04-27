@@ -9,7 +9,7 @@ import java.util.Timer;
 
 /**
  *
- * @author aluno
+ * @author Castilin
  */
 
 public class TrafLight {

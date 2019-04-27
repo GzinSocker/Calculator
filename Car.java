@@ -9,19 +9,22 @@ import java.util.Random;
 
 /**
  *
- * @author aluno
+ * @author Castilin
  */
 
 public class Car {
-    private int x1, x2, y1, y2, min=1, max=8, orientation, progress, x0, y0;
+    private int x1, x2, y1, y2, orientation, progress, color, vel;
     private long startTime, currentTime;
-    //private double vel ;
+    private static int trafego=0;
     Random r;
     
     public Car(){
         r = new Random();
         startTime = System.currentTimeMillis();
-        orientation=r.nextInt((max - min)+1)+min;
+        orientation=r.nextInt(8)+1;
+        color = r.nextInt(4)+6;
+        vel = r.nextInt(101)+50;
+        trafego++;
         switch(orientation){
             case 1:
             case 2:{
@@ -63,7 +66,7 @@ public class Car {
     
     public void waitTheRightTime(){
         currentTime = System.currentTimeMillis();
-        if(currentTime - startTime<=300.0){
+        if(currentTime - startTime>=vel){
             move();
         }
     }
@@ -173,20 +176,20 @@ public class Car {
         this.orientation = orientation;
     }
 
-    public int getX0() {
-        return x0;
+    public int getColor() {
+        return color;
     }
 
-    public void setX0(int x0) {
-        this.x0 = x0;
+    public void setColor(int color) {
+        this.color = color;
+    }
+    
+    public static int getTrafego() {
+        return trafego;
     }
 
-    public int getY0() {
-        return y0;
-    }
-
-    public void setY0(int y0) {
-        this.y0 = y0;
+    public static void setTrafego(int trafego) {
+        Car.trafego = trafego;
     }
     
 }
