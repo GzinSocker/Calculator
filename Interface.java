@@ -6,11 +6,16 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.TimerTask;
-import java.util.Timer;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.script.ScriptException;
 import javax.swing.*;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  *
@@ -18,60 +23,140 @@ import javax.swing.*;
  */
 public class Interface{
     JFrame f;
-    Graphics gg;
-    Color[] cs = new Color[10];
+    JButton[] num = new JButton[10];
+    JButton ce, undo, sum, sub, div, mul, equ;
+    JPanel p;
+    GridBagConstraints c;
+    JTextArea t;
+    int aux = 0;
+    String text="";
     Logic l;
-    Timer timer;
-    Panel p;
     
     public Interface(){
         l = new Logic();
-        p=new Panel();
-        cs[0] = new Color(194,200,151);
-        cs[1] = new Color(76,72,105); 
-        cs[2] = new Color(255,255,0);
-        cs[3] = new Color(243,219,133);
-        cs[4] = new Color(132,253,56);
-        cs[5] = new Color(255,0,0);
-        cs[6] = new Color(48,45,45);
-        cs[7] = new Color(54,209,46);
-        cs[8] = new Color(201,201,201);
-        cs[9] = new Color(235,101,1);
         f = new JFrame();
-        f.add(p);
-        f.setSize(448,477);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("Tráfego: 0");
-        f.setLocationRelativeTo(null);
+        f.setSize(100,100);
         f.setVisible(true);
-        timer = new Timer();
-        TimerTask task = new TimerTask() {
-            public void run()
-            {
-                p.repaint();
-                f.setTitle("Tráfego: "+l.update());
-            }
-        };
-        timer.schedule( task, 0L, 10L );
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        f.setTitle("Castilho's Calculator");
+        p = new JPanel(new GridBagLayout());
+        t = new JTextArea(1,10);
+        t.setEditable(false);
+        t.setBackground(new Color(195,255,182));t.setForeground(Color.black);
+        p.setBackground(new Color(195,255,182));
+        t.setFont(new Font("Arial", Font.BOLD, 25));
+        c = new GridBagConstraints();
+        Event e = new Event();
+        for(int i=0;i<num.length;i++) {
+                num[i] = new JButton(String.valueOf(i));
+                num[i].addActionListener(e);
+        }
+        ce = new JButton("C");undo = new JButton("«");sum = new JButton("+");sub = new JButton("-");div = new JButton("/");mul = new JButton("*");equ = new JButton("=");
+        ce.addActionListener(e);undo.addActionListener(e);sum.addActionListener(e);sub.addActionListener(e);div.addActionListener(e);mul.addActionListener(e);equ.addActionListener(e);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx=10;
+        c.ipady=10;
+        c.gridy=0;
+        c.gridx=0;
+        c.gridwidth=4;
+        p.add(t, c);
+        c.ipadx=50;
+        c.ipady=50;
+        c.gridwidth=1;
+        c.gridx=0;
+        c.gridy=1;
+        p.add(ce,c);
+        c.gridx=1;
+        c.gridwidth=2;
+        p.add(undo, c);
+        c.gridx=3;
+        c.gridwidth=1;
+        p.add(div, c);
+        c.gridy=2;
+        c.gridx=0;
+        p.add(num[7], c);
+        c.gridx=1;
+        p.add(num[8], c);
+        c.gridx=2;
+        p.add(num[9], c);
+        c.gridx=3;
+        p.add(mul, c);
+        c.gridy=3;
+        c.gridx=0;
+        p.add(num[4], c);
+        c.gridx=1;
+        p.add(num[5], c);
+        c.gridx=2;
+        p.add(num[6], c);
+        c.gridx=3;
+        p.add(sub, c);
+        c.gridy=4;
+        c.gridx=0;
+        p.add(num[1], c);
+        c.gridx=1;
+        p.add(num[2], c);
+        c.gridx=2;
+        p.add(num[3], c);
+        c.gridx=3;
+        p.add(sum, c);
+        c.gridy=5;
+        c.gridx=1;
+        p.add(num[0], c);
+        c.gridx=2;
+        c.gridwidth=2;
+        p.add(equ, c);
+        f.add(p);
+        f.pack();
     }
     
-    class Panel extends JPanel {
-        @Override
-        protected void paintComponent(Graphics g){
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
-            for(int i=0;i<430;i+=10){
-                for(int j=0;j<430;j+=10){
-                    Draw(i, j, g);
+    class Event implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            if(e.getActionCommand()=="C"){
+                t.setText(null);
+                text="";
+                aux=0;
+            }
+            else if(e.getActionCommand()=="="){
+                try {
+                    text = l.resolve(text);
+                } catch (ScriptException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                t.setText(text);
             }
+            else if(e.getActionCommand()=="«"){
+                text = backspace(text);
+                t.setText(text);
+            }
+            else if(e.getActionCommand()=="+"||e.getActionCommand()=="-"||e.getActionCommand()=="/"||e.getActionCommand()=="*"){
+                if(aux==2){
+                    text = backspace(text);
+                    text+=e.getActionCommand();
+                    t.setText(text);
+                }
+                else if(aux!=0){
+                    text+=" "+e.getActionCommand();
+                    t.setText(text);
+                }
+                aux=2;
+            }
+            else if(Integer.parseInt(e.getActionCommand())>=0&&Integer.parseInt(e.getActionCommand())<=9){
+                if(aux!=2){
+                    text +=e.getActionCommand();
+                    t.setText(text);
+                }
+                else{
+                    text += " "+e.getActionCommand();
+                    t.setText(text);
+                }
+                aux=1;
+            }
+            
         }
-        public void Draw(int y, int x, Graphics g){
-            g.setColor(cs[l.grid[x/10][y/10]]);
-            g.fillRect(x, y, 10, 10);
-            //repaint();
-        }
+        public String backspace (String str){
+                return str.substring(0,str.length()-1);
+           }
     }
-    
-    
+        
 }
